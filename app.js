@@ -33,9 +33,14 @@ function init() {
             return date["Year"] == bar[0]
         }
         let data = response.filter(getyear);
+        
+        data.sort((a,b) => a["Rank"] - b["Rank"]); // b - a for reverse sort
+        console.log(data)
         for (let i=0; i<data.length; i++){
+            console.log(data[i]["Rank"])
             rank.push(data[i]["Rank"])
-            artist_name.push(data[i]["Artist Name"])
+            console.log(data[i]["Song Title"])
+            artist_name.push(data[i]["Song Title"])
         }
 
         function getyear2(date) {
@@ -44,7 +49,7 @@ function init() {
         let data2 = response.filter(getyear2);
         for (let j=0; j<data2.length; j++){
             rank2.push(data2[j]["Rank"])
-            artist_name2.push(data2[j]["Artist Name"])
+            artist_name2.push(data2[j]["Song Title"])
         }
 
         function getyear3(date) {
@@ -53,7 +58,7 @@ function init() {
         let data3 = response.filter(getyear3);
         for (let k=0; k<data3.length; k++){
             rank3.push(data3[k]["Rank"])
-            artist_name3.push(data3[k]["Artist Name"])
+            artist_name3.push(data3[k]["Song Title"])
         }
 
         function getyear4(date) {
@@ -62,7 +67,7 @@ function init() {
         let data4 = response.filter(getyear4);
         for (let k=0; k<data4.length; k++){
             rank4.push(data4[k]["Rank"])
-            artist_name4.push(data4[k]["Artist Name"])
+            artist_name4.push(data4[k]["Song Title"])
         }
 
         function getyear5(date) {
@@ -71,7 +76,7 @@ function init() {
         let paimore = response.filter(getyear5);
         for (let k=0; k<paimore.length; k++){
             rank5.push(paimore[k]["Rank"])
-            artist_name5.push(paimore[k]["Artist Name"])
+            artist_name5.push(paimore[k]["Song Title"])
         }
 
         function getyear6(date) {
@@ -80,7 +85,7 @@ function init() {
         let spymon = response.filter(getyear6);
         for (let k=0; k<spymon.length; k++){
             rank6.push(spymon[k]["Rank"])
-            artist_name6.push(spymon[k]["Artist Name"])
+            artist_name6.push(spymon[k]["Song Title"])
         }
 
         function getyear7(date) {
@@ -89,7 +94,7 @@ function init() {
         let byemon = response.filter(getyear7);
         for (let k=0; k<byemon.length; k++){
             rank7.push(byemon[k]["Rank"])
-            artist_name7.push(byemon[k]["Artist Name"])
+            artist_name7.push(byemon[k]["Song Title"])
         }
 
         function getyear8(date) {
@@ -100,13 +105,20 @@ function init() {
             rank8.push(paimon[k]["Rank"])
             artist_name8.push(paimon[k]["Artist Name"])
         }
-
+        rank = rank.toString()
+        console.log(rank)
+        console.log(artist_name)
+        
     data = [{
       x: rank,
       y: artist_name,
-    type: 'bar' }];
+    type: 'bar'}];
+
+    var layout = {
+        title:'Rankings vs. Years'
+      };
   
-    Plotly.newPlot("lineplot", data);
+    Plotly.newPlot("lineplot", data, layout);
     });
     d3.json("http://127.0.0.1:5000/singer_count", function(response){
         let artist = response.map(row => row['Artist Name'])
@@ -117,11 +129,31 @@ function init() {
             y: rank,
             type: 'scatter'
           };
+
+          var layout2 = {
+            title:'Artist Names vs. Rankings'
+          };
         var data = [trace1];
-        Plotly.newPlot('map', data);
+        Plotly.newPlot('map', data, layout2);
         
     });
+    let selector = d3.select("#pie_selector");
+
     d3.json("http://127.0.0.1:5000/pie", function(response){
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+          }
+        let sampleNames = response.map(value => value["Artist Name"])
+        sampleNames = sampleNames.filter(onlyUnique);
+
+        console.log(sampleNames)
+    sampleNames.forEach((sample) => {
+      selector
+        .append("option")
+        .text(sample)
+        .property("value", sample);
+    });
+        console.log(response)
         function find_singer(singer) {
             // return player.madeTeam == true;
             // A more concise way to express a boolean conditional
@@ -140,7 +172,11 @@ function init() {
             type: 'pie'
           }];
 
-          Plotly.newPlot('pie', data);
+          var layout = {
+            title:'Adding Names to Line and Scatter Plot'
+          };
+
+          Plotly.newPlot('pie', data, layout);
     });
 }
   
