@@ -16,9 +16,9 @@ function init() {
     });
         console.log(response)
 
-        d3.selectAll('div.panel-body').append('p').classed("mama", true).text('year: 2014')
-        d3.selectAll('div.panel-body').append('p').classed("papa", true).text('x: rank')
-        d3.selectAll('div.panel-body').append('p').classed("baby", true).text('y: artist names')
+        d3.selectAll('div.panel-body').append('p').classed("mama", true).text('Current Year: 2014')
+        d3.selectAll('div.panel-body').append('p').classed("papa", true).text('x-axis: Rank')
+        d3.selectAll('div.panel-body').append('p').classed("baby", true).text('y-axis: Artist Names')
 
         function getyear(date) {
             return date["Year"] == "2014"
@@ -55,7 +55,17 @@ function init() {
           
 
           var layout2 = {
-            title:'#s of Top 25 Artists 2014-2021'
+            title:'Instances of Top 25 by Artist (2014-2021)',
+            xaxis: {
+              title: {
+                text: 'Artist Name'
+              }
+            },
+            yaxis: {
+              title: {
+                text: 'Number of Top 25 Instances'
+              }
+            },
           };
         var data = [trace1];
         Plotly.newPlot('map', data, layout2);
@@ -98,7 +108,7 @@ function init() {
           }];
 
           var layout = {
-            title:'Rank Percentage for Each Singer'
+            title:'Percentage Won By Selected Singer'
           };
 
           Plotly.newPlot('pie', data, layout);
