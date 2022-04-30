@@ -20,15 +20,11 @@ The goal of this project was to determine what musical artists had the most inst
 4. Using JavaScript, use d3 functions to sort through the data so it can be used reactively by the HTML (such as the graphs and dropdown functions, so they do not have to be hard-coded)
 5. Finally, using HTML, ensure the data is presented correctly using Plotly and Bootstrap so it looks presentable
 - Finalized Product:
-
-(screenshot 1 goes here)
+![Final Results](Images/Screenshot_1.png)
 
 ### Findings
 - We found that the arist "The Beatles" has the most instances of appearing on the Top 25 charts over the course of 7 years. (Fig. 1)
 - The second most on the list was the artist known as "Soundtrack", with 11 instances appearing on the list (Fig. 2) and the third most is the artist "Bob Marley and the Wailers" with 8 instances. (Fig. 3)
-
-(screenshot 2 goes here)
-
-(screenshot 3 goes here)
-
-(screenshot 4 goes here)
+![Fig. 1](Images/Screenshot_2.png)
+![Fig. 2](Images/Screenshot_3.png)
+![Fig. 3](Images/Screenshot_4.png)
